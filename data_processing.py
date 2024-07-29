@@ -6,7 +6,7 @@ import pandas as pd
 def preprocessing(df):
     # FE: replace the following model names in the 'model' column
 
-    ## `ford f150` (counts=530) with `ford f-150` (counts=2796)
+    # `ford f150` (counts=530) with `ford f-150` (counts=2796)
     df['model'] = df['model'].replace('ford f150', 'ford f-150')
     # `ford f250` (counts=339) with `ford f-250` (counts=422)
     df['model'] = df['model'].replace('ford f250', 'ford f-250')
@@ -33,18 +33,24 @@ def preprocessing(df):
 
     # MISSING VALUES: replace NaN with zero (0 = not 4wd) in 'is_4wd' column 
     df['is_4wd'] = df['is_4wd'].fillna(0)
-
     # MISSING VALUES: replace NaN with 'white' in 'paint_color' column
     df['paint_color'] = df['paint_color'].fillna('white')
-
     # MISSING VALUES: replace NaN with 'median' model year calculation in 'model_year' column
     df['model_year'] = df['model_year'].fillna(df.groupby(['model'])['model_year'].transform('median'))
-
     # MISSING VALUES: replace NaN with 'mean' odometer calculation in 'odometer' column
     df['odometer'] = df['odometer'].fillna(df.groupby(['model', 'model_year'])['odometer'].transform('mean'))
-
     # MISSING VALUES: replace NaN with 'median' cylinder calculation in 'cylinders' column
     df['cylinders'] = df['cylinders'].fillna(df.groupby(['model', 'model_year'])['cylinders'].transform('median'))
+    # DROP MISSING VALUES: drop rows with missing values in 'cylinders' and 'odometer' columns in df
+    df = df.dropna(subset=['cylinders', 'odometer'])
+
+
+
+    # 'model_year' column convert datatype from float64 to int32 to get 4-digit year
+    df['model_year'] = df['model_year'].astype(int)
+    # 'date_posted' column convert value datatype from object to datetime 
+    df['date_posted'] = pd.to_datetime(df['date_posted'], format='%Y-%m-%d')
+
 
     return df
 
