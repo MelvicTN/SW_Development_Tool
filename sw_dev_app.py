@@ -80,6 +80,30 @@ st.title('Scatter Plot-2: Vehicle Sales Price by Milage and Transmission')
 st.plotly_chart(fig_scatter_2)
 
 
+# Creating a st.checkbox is_4wd = Y/N
+#st.checkbox('Vehicle is 4 Wheel Drvie')
+is_4wd = st.checkbox('Vehicle is 4 Wheel Drvie')
+
+# filter data set for vehicles that 4WD
+y_4wd_filter = vehicles_df.query("is_4wd == 1")[['model_year', 'model_name', 'price', 'type', 'odometer', 'transmission']]
+
+# new scatter/histogram plot when checked = update plot
+if is_4wd:
+    fig = px.scatter(y_4wd_filter, x="odometer", y="price", color="transmission", log_y=True,
+                 size='odometer', 
+                 title='Scatter Plot: Vehicle Sales Price by Milage and Transmission', 
+                 hover_data=['model_year', 'model_name', 'price', 'type', 'odometer'])
+    fig.show()
+
+# original scatter/histogram plot when unchecked (default setting)
+else:
+    fig = px.scatter(df, x="odometer", y="price", color="transmission", log_y=True,
+                 size='odometer', 
+                 title='Scatter Plot: Vehicle Sales Price by Milage and Transmission', 
+                 hover_data=['model_year', 'model_name', 'price', 'type', 'odometer'])
+    fig.show()
+
+
 
 
 # REFERENCE CODE: for checkbox
