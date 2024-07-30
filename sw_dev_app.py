@@ -3,19 +3,23 @@ import streamlit as st
 import pandas as pd
 import plotly.express as px
 
-# load *.csv file into dataframes from my GitHub repository 
-#try:
-#    vehicles_df = pd.read_csv('vehicles_us.csv')
-#except:
-#    #vehicles_df = pd.read_csv('https://practicum-content.s3.us-west-1.amazonaws.com/datasets/vehicles_us.csv')
-#    vehicles_df = pd.read_csv('https://github.com/MelvicTN/SW_Development_Tool.git')
+# header
+st.header('Web App: Vehicle Sales')
 
+# cache the loaded data
+@st.cache_data
+
+
+# load *.csv file into dataframes from my GitHub repository 
+try:
+    df = pd.read_csv('vehicles_cleaned.csv')
+except:
+#    df = pd.read_csv('https://practicum-content.s3.us-west-1.amazonaws.com/datasets/vehicles_us.csv')
+    df = pd.read_csv('https://github.com/MelvicTN/SW_Development_Tool.git')
 
 # load *.csv file from GitHub repository
-df = pd.read('vehicles_cleaned.csv')
+#df = pd.read('vehicles_cleaned.csv')
 
-
-st.header('Web App: Vehicle Sales')
 
 
 
