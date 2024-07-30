@@ -7,7 +7,8 @@ import plotly.express as px
 st.header('Web App: Vehicle Sales')
 
 # cache the loaded data: reuse data across runs
-@st.cache_data
+#@st.cache_data
+
 df = pd.read_csv('vehicles_cleaned.csv')
 
 
