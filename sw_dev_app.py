@@ -34,18 +34,6 @@ st.plotly_chart(fig_histogram_1)
 
 
 
-# checkbox task/create
-show_histogram = st.checkbox('Show Histogram')
-
-# x = x-axos, labels = checkbox options, yaxis
-if show_histogram:
-    fig_histogram_1 = px.histogram(df, x='days_listed', title='Vehicle Condition', labels={'conditions':'Car Type'})
-    #fig.update_layout(yaxis_title="Amount in Stock")
-    st.plotly_chart(fig_histogram_1)
-
-
-
-
 
 # DATA VISUALIZATION-Histogram: Manufactuer Breakdown by Vehicle Type
 fig_histogram_2 = px.histogram(df, x="make", color="type", title='Manufacturer Breakdown by Vehicle Type').update_xaxes(categoryorder='total descending')
@@ -53,7 +41,6 @@ fig_histogram_2 = px.histogram(df, x="make", color="type", title='Manufacturer B
 # Display the plot using streamlit
 st.title('Histogram-2: Vehicles Sale Days Posted by Condition')
 st.plotly_chart(fig_histogram_2)
-
 
 
 
@@ -73,7 +60,9 @@ st.plotly_chart(fig_scatter_1)
 
 # DATA VISUALIZATION-Scatter Plot-2: Vehicle Sales Price by Milage and Transmission
 fig_scatter_2 = px.scatter(df, x="odometer", y="price", color="transmission",
-                 size='odometer', title='Scatter Plot: Vehicle Sales Price by Milage and Transmission', hover_data=['model_year', 'model_name', 'price', 'type', 'odometer'])
+                 size='odometer', 
+                 title='Scatter Plot: Vehicle Sales Price by Milage and Transmission', 
+                 hover_data=['model_year', 'model_name', 'price', 'type', 'odometer'])
 
 # Display the plot using streamlit
 st.title('Scatter Plot-2: Vehicle Sales Price by Milage and Transmission')
@@ -85,23 +74,23 @@ st.plotly_chart(fig_scatter_2)
 is_4wd = st.checkbox('Vehicle is 4 Wheel Drvie')
 
 # filter data set for vehicles that 4WD
-y_4wd_filter = vehicles_df.query("is_4wd == 1")[['model_year', 'model_name', 'price', 'type', 'odometer', 'transmission']]
+y_4wd_filter = df.query("is_4wd == 1")[['model_year', 'model_name', 'price', 'type', 'odometer', 'transmission']]
 
 # new scatter/histogram plot when checked = update plot
 if is_4wd:
-    fig = px.scatter(y_4wd_filter, x="odometer", y="price", color="transmission", log_y=True,
+    fig_y_4wd = px.scatter(y_4wd_filter, x="odometer", y="price", color="transmission", log_y=True,
                  size='odometer', 
                  title='Scatter Plot: Vehicle Sales Price by Milage and Transmission', 
                  hover_data=['model_year', 'model_name', 'price', 'type', 'odometer'])
-    fig.show()
+    st.plotly_chart(fig_y_4wd)
 
 # original scatter/histogram plot when unchecked (default setting)
 else:
-    fig = px.scatter(df, x="odometer", y="price", color="transmission", log_y=True,
+    fig_scatter_2 = px.scatter(df, x="odometer", y="price", color="transmission", log_y=True,
                  size='odometer', 
                  title='Scatter Plot: Vehicle Sales Price by Milage and Transmission', 
                  hover_data=['model_year', 'model_name', 'price', 'type', 'odometer'])
-    fig.show()
+    st.plotly_chart(fig_scatter_2)
 
 
 
