@@ -23,9 +23,11 @@ df = pd.read('vehicles_cleaned.csv')
 # DATA VISUALIZATION: create a histogram using plotly express
 #df = clean_VEH_df
 
-fig = px.histogram(df, x="days_listed", nbins=90, color='condition', title='Histogram Days Listed', hover_data=['model_year', 'make', 'model_name'])
-fig.show()
+fig_histogram_1 = px.histogram(df, x="days_listed", nbins=90, color='condition', title='Histogram Days Listed', hover_data=['model_year', 'make', 'model_name'])
 
+#fig.show()
+# Display the plot
+st.plotly_chart(fig_histogram_1)
 
 
 
@@ -33,9 +35,11 @@ fig.show()
 
 # DATA VISUALIZATION: create a histogram using plotly express
 #df = clean_VEH_df
-fig = px.histogram(df, x="make", color="type", title='Histogram: Make Breakdown by Vehicle Type').update_xaxes(categoryorder='total descending')
-fig.show()
+fig_histogram_2 = px.histogram(df, x="make", color="type", title='Histogram: Make Breakdown by Vehicle Type').update_xaxes(categoryorder='total descending')
 
+#fig.show()
+# Display the plot
+st.plotly_chart(fig_histogram_2)
 
 
 
@@ -43,10 +47,12 @@ fig.show()
 # DATA VISUALIZATION: create a scatter plot using plotly express
 # Setting size and color with column names
 #df = clean_VEH_df
-fig = px.scatter(df, x="date_posted", y="price", color="condition",
+fig_scatter_1 = px.scatter(df, x="date_posted", y="price", color="condition",
                  size='days_listed', title='Scatter Plot: Vehicle Condition and Price by Vehicle Condition', hover_data=['model_year', 'model_name', 'price', 'type', 'odometer'])
-fig.show()
 
+#fig.show()
+# Display the plot
+st.plotly_chart(fig_scatter_1)
 
 
 
@@ -55,7 +61,9 @@ fig.show()
 # DATA VISUALIZATION: create a scatter plot using plotly express
 # Setting size and color with column names
 #df = clean_VEH_df
-fig = px.scatter(df, x="odometer", y="price", color="transmission",
+fig_scatter_2 = px.scatter(df, x="odometer", y="price", color="transmission",
                  size='odometer', title='Scatter Plot: Vehicle Sales Price by Milage and Transmission', hover_data=['model_year', 'model_name', 'price', 'type', 'odometer'])
 
-fig.show()
+#fig.show()
+# Display the plot
+st.plotly_chart(fig_scatter_2)
