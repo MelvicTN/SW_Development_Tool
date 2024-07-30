@@ -8,9 +8,8 @@ st.header('Web App: Vehicle Sales')
 
 # cache the loaded data: reuse data across runs
 @st.cache_data
-def load_data(rows):
-    df = pd.read('vehicles_cleaned.csv')
-    return df
+df = pd.read_csv('vehicles_cleaned.csv')
+
 
 # load *.csv file into dataframes from my GitHub repository 
 #try:
